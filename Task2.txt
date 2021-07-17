@@ -1,0 +1,28 @@
+Task 2
+
+solution 1
+
+assumptions 
+*for each color(black blue red) there are 'n' balls each present in bag
+*total sum of the balls(minimum) should be exactly 'm'
+
+**code**
+
+n=int(input('Enter Val'))
+m=int(input('Enter Val'))
+ans=0
+red=min(n,(4*m)/3)
+ans+=red
+left=m-(red*0.75)
+blue=min(n,2*left)
+ans+=blue
+left-=(blue*0.5)
+black=min(n,4*left)
+ans+=black
+left-=(black*0.25)
+if(left==0):
+print(ans)
+else:
+print("solution not possible)
+
+

@@ -1,0 +1,84 @@
+Task 1
+
+solution: minimum positive sum with maximum number of elements from list
+
+approach: 
+1. make two priority queue/sorted array(can be done both ways)
+2. first priority queue will be minimum priority queue for positive integers since we need minimum sum, so we will start with smallest element of positive queue
+3. second priority queue will be maximum priority queue for negative integers since we need maximum elements for our list so we will select elements from this quueue
+   until the sum is positive
+
+
+**code approach**
+
+vector<int> list;   //list that is provided to us//
+vector<int> ans;    //solution list//
+int minsum=0;          //minimum sum as the solution//
+
+priority_queue<int> neg;
+priority_queue<int,vector<int>,greater<int>> pos;
+
+for(int i=0;i<list.size();i++)
+{
+ 	if(list[i]>=0)
+ 	{
+		pos.push(list[i]);
+	}
+	else
+	{
+		neg.push(list[i]);
+	}
+}
+vector<int> negarr;  ///max priority queue as sorted array but in O(n) time complexity///
+ //enter neg priority queue in negarr//
+vector<int> posarr;  ///min priority queue as sorted array but in O(n) time complexity///
+ //enter neg priority queue in posarr//
+
+int sn=0;
+int sp=1;
+
+if(posarr.size()==0)
+{
+	cout<<"solution not possible as sum cannot be positive";
+}
+
+int sum=posarr[0];
+int temp=0;			//index in array newarr that will tell us number of elements or index upto elements ///
+
+int minsum=sum;
+
+vector<int> newarr;
+newarr.push_back(posarr[0]);
+
+while(sn<negarr.size() && sp<posarr.size())
+{
+	while(sum>0 && sn<negarr.size() && sp<posarr.size())		//traverse negarr while sum is positive//
+	{
+		int tempsum=sum-negarr[sn];
+		if(tempsum>0)                                          //double checking if the sum has not become negative//
+		{
+			sum-=negarr[sn];
+			newarr.push_back(negarr[sn]);
+			sn++;
+		}
+	}
+	if(minsum>sum && sum>0)					     // if the sum if still positive and less than minsum than this is our new solution//
+	{
+		minsum=sum;
+		temp=newarr.size();
+	}
+	sum+=posarr[sp];					    //add positive elements to the list so the code can run again for new sum//
+	sp++;
+	if(minsum>sum && sum>0)				          // if somehow sum has become negative after adding posarr[sp] it should become positive so check again//
+	{
+		minsum=sum;
+		temp=newarr.size();
+	}
+}
+
+final solution
+
+     minimum sum =  minsum
+     maximum element list is vector until index 'temp'	
+
+	
